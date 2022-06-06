@@ -9,6 +9,7 @@ import ddf.minim.ugens.*;
 //Global Variables
 Minim minim; //object to access all music player fuctions
 AudioPlayer song1; //WAV, AIFF, AU, SND & MP3 
+AudioMetaData songMetaData1;
 //
 
 void setup()
@@ -16,8 +17,15 @@ void setup()
   //fullScreen();
   minim = new Minim(this); //loads from data directory, loads from project folder
   song1 = minim.loadFile("MusicDownload/MusicProgram_MusicDownload_groove.mp3"); //albe to pass absulute path, file name & extension, and URL
+  songMetaData1 = song1.getMetaData();
+  //
+  println("Start of Console");
+  println("Click the console to Finish Starting this program");
+  println("Title:", songMetaData1.title() );
 }//End setup
+
 //
+
 void draw() {
   if ( song1.isLooping() ) println("There are", song1.loopCount()-1, "loops left.");
   if ( song1.isPlaying() && !song1.isLooping() ) println("Play Once");
@@ -39,17 +47,24 @@ void keyPressed()
     song1.loop(num);
   }//End loop
 
+
   //Play-Paused button
+  if ( key=='l' || key=='L') song1.loop();
   if ( key>='3' && key!='9') println("I do not loop that much! Try again.");
   //
   if ( key=='p' || key=='P' ) { 
     if ( song1.isPlaying() ) {
       song1.pause();
+    } else if ( song1.position() >= song1.length() - song1.length()*1/5 ) { //Special situation
+    song1.rewind();
+    song1.play();
     } else {
-      song1.play(500);
+      song1.play();
     }
   }//End Play-Paused button
 
+  if ( key=='f' || key=='F' ) song1.skip(1000); //skip forward
+  if ( key=='r' || key=='R' ) song1.skip(-1000); //skip backward
 
   /* Previous Play Button & Loop Button
    int loopNum = 2; //Local Variables plays once and loops twice
