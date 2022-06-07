@@ -21,12 +21,13 @@ void setup()
   fullScreen();
   minim = new Minim(this); //loads from data directory, loads from project folder
   song[currentSong] = minim.loadFile("MusicDownload/MusicProgram_MusicDownload_groove.mp3"); //albe to pass absulute path, file name & extension, and URL
-  //song[1] = minim.loadFile("MusicDownload/MusicProgram_MusicDownload_groove.mp3");
-  //song[2] = minim.loadFile("MusicDownload/MusicProgram_MusicDownload_groove.mp3");
+  song[currentSong+=1] = minim.loadFile("MusicDownload/MusicProgram_MusicDownload_groove.mp3");
+  song[currentSong+=1] = minim.loadFile("MusicDownload/MusicProgram_MusicDownload_groove.mp3");
   //
-  for (int i=currentSong; i<song.length; i++) {
+  currentSong-=currentSong;
+  for ( int i=currentSong; i<song.length; i++ ) {
     songMetaData[i] = song[i].getMetaData();
-  } //End Meta Data
+  }//End Meta Data
 
   //songMetaData[0] = song[0].getMetaData();
   //songMetaData[1] = song[1].getMetaData();
@@ -45,7 +46,8 @@ void draw() {
   if ( song[currentSong].isLooping() ) println("There are", song[currentSong].loopCount()-1, "loops left.");
   if ( song[currentSong].isPlaying() && !song[currentSong].isLooping() ) println("Play Once");
   //
-  //println("Song Position", song1.position(), "Song Length", song1.length() );
+  println("Computer Number of Current Song:", currentSong);
+  println("Song Position", song[currentSong].position(), "Song Length", song[currentSong].length() );
   //
   background (#000000);
   rect(displayWidth*1/4, displayHeight*0, displayWidth*1/2, displayHeight*1/10);
@@ -79,7 +81,7 @@ void keyPressed()
   if ( key=='p' || key=='P' ) { 
     if ( song[currentSong].isPlaying() ) {
       song[currentSong].pause();
-    } else if ( song[0].position() >= song[0].length() - song[0].length()*1/5 ) { //Special situation
+    } else if ( song[currentSong].position() >= song[currentSong].length() - song[currentSong].length()*1/5 ) { //Special situation
       song[currentSong].rewind();
       song[currentSong].play();
     } else {
@@ -113,12 +115,21 @@ void keyPressed()
       song[currentSong].rewind();
     }
   }//End STOP button
+
+  if ( key=='n' || key=='N' ) {//Next Button
+    if ( song [currentSong].isPlaying() ) {
+      } else {
+  currentSong++; 
+}
+}//End Next Button
+
 }//End keyPressed
 
 //
 
 void mousePressed() 
 {
+  currentSong++;
 }//End mousePressed
 //
 
