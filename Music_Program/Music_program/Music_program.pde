@@ -130,6 +130,16 @@ void keyPressed()
   }//End Next Button
 
   if (  key=='z' || key=='Z' ) {
+    if ( song [currentSong].isPlaying() ) {
+      song[currentSong].pause();
+      song[currentSong].rewind();
+      backButtonArrayCatch();
+      song[currentSong].play();
+    } else {
+      song[currentSong].rewind();
+      backButtonArrayCatch();
+      song[currentSong].play();
+    }
   } //End Back Button
 }//End keyPressed
 
