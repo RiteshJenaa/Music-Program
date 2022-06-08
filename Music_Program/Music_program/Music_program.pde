@@ -9,9 +9,10 @@ import ddf.minim.ugens.*;
 //Global Variables
 Minim minim; //object to access all music player fuctions
 int numberOfSongs = 4;
+AudioPlayer[] song = new AudioPlayer[numberOfSongs]; //WAV, AIFF, AU, SND, & MP3
+AudioMetaData[] songMetaData = new AudioMetaData[numberOfSongs]; //meta data
 int currentSong = numberOfSongs - numberOfSongs;
-AudioPlayer[] song = new AudioPlayer[numberOfSongs] ; //WAV, AIFF, AU, SND & MP3 
-AudioMetaData[] songMetaData = new AudioMetaData[numberOfSongs];
+
 color purple = #E60AFF;
 PFont titleFont;
 //
@@ -20,11 +21,12 @@ void setup()
 {
   fullScreen();
   minim = new Minim(this); //loads from data directory, loads from project folder
-  song[currentSong] = minim.loadFile("MusicDownload/MusicProgram_MusicDownload_groove.mp3"); //albe to pass absulute path, file name & extension, and URL
-  song[currentSong+=1] = minim.loadFile("MusicDownload/MusicProgram_MusicDownload_groove.mp3");
+  song[currentSong] = minim.loadFile("MusicDownload/Beat_Your_Competition.mp3"); //albe to pass absulute path, file name & extension, and URL
+  song[currentSong+=1] = minim.loadFile("MusicDownload/Ghost_Walk.mp3");
+  song[currentSong+=1] = minim.loadFile("MusicDownload/The_Simplest.mp3");
   song[currentSong+=1] = minim.loadFile("MusicDownload/MusicProgram_MusicDownload_groove.mp3");
   //
-  currentSong-=currentSong;
+  currentSong-=currentSong; //currentSong = currentSong - currentSong
   for ( int i=currentSong; i<song.length; i++ ) {
     songMetaData[i] = song[i].getMetaData();
   }//End Meta Data
@@ -43,8 +45,8 @@ void setup()
 //
 
 void draw() {
-  if ( song[currentSong].isLooping() ) println("There are", song[currentSong].loopCount()-1, "loops left.");
-  if ( song[currentSong].isPlaying() && !song[currentSong].isLooping() ) println("Play Once");
+  //if ( song[currentSong].isLooping() ) println("There are", song[currentSong].loopCount()-1, "loops left.");
+  //if ( song[currentSong].isPlaying() && !song[currentSong].isLooping() ) println("Play Once");
   //
   println("Computer Number of Current Song:", currentSong);
   println("Song Position", song[currentSong].position(), "Song Length", song[currentSong].length() );
@@ -81,7 +83,7 @@ void keyPressed()
   if ( key=='p' || key=='P' ) { 
     if ( song[currentSong].isPlaying() ) {
       song[currentSong].pause();
-    } else if ( song[currentSong].position() >= song[currentSong].length() - song[currentSong].length()*1/5 ) { //Special situation
+    } else if ( song[currentSong].position() >= song[currentSong].length() - song[currentSong].length()*1/6 ) { //Special situation
       song[currentSong].rewind();
       song[currentSong].play();
     } else {
@@ -92,11 +94,7 @@ void keyPressed()
   if ( key=='f' || key=='F' ) song[currentSong].skip(1000); //skip forward
   if ( key=='r' || key=='R' ) song[currentSong].skip(-1000); //skip backward
 
-  /* Previous Play Button & Loop Button
-   int loopNum = 2; //Local Variables plays once and loops twice
-   //song1.play(); //Parameter is milli-seconds from start of audio file to start of playing
-   if ( key=='l' || key=='L' ) song1.loop(loopNum); //Parameter is number of repeats;
-   */
+  //
 
   if ( key=='m' || key=='M' ) { //Mute
     if ( song[currentSong].isMuted() ) {
@@ -118,18 +116,30 @@ void keyPressed()
 
   if ( key=='n' || key=='N' ) {//Next Button
     if ( song [currentSong].isPlaying() ) {
+      song[currentSong].pause();
+      song[currentSong].rewind();
+       if ( currentSong >= song.length-1 ) {
+        currentSong -= currentSong;
       } else {
-  currentSong++; 
-}
-}//End Next Button
-
+        currentSong++;
+      }//End of CATCH 
+    } else {
+      song[currentSong].rewind();
+      if ( currentSong >= song.length-1 ) {
+        currentSong -= currentSong;
+      } else {
+        currentSong++;
+      }//End of CATCH 
+      song[currentSong].play();
+    }
+  }//End Next Button
 }//End keyPressed
 
 //
 
 void mousePressed() 
 {
-  currentSong++;
+  //currentSong++;
 }//End mousePressed
 //
 
