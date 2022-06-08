@@ -114,25 +114,23 @@ void keyPressed()
     }
   }//End STOP button
 
+  //
+
   if ( key=='n' || key=='N' ) {//Next Button
     if ( song [currentSong].isPlaying() ) {
       song[currentSong].pause();
       song[currentSong].rewind();
-       if ( currentSong >= song.length-1 ) {
-        currentSong -= currentSong;
-      } else {
-        currentSong++;
-      }//End of CATCH 
+      nextButtonArrayCatch();
+      song[currentSong].play();
     } else {
       song[currentSong].rewind();
-      if ( currentSong >= song.length-1 ) {
-        currentSong -= currentSong;
-      } else {
-        currentSong++;
-      }//End of CATCH 
+      nextButtonArrayCatch();
       song[currentSong].play();
     }
   }//End Next Button
+
+  if (  key=='z' || key=='Z' ) {
+  } //End Back Button
 }//End keyPressed
 
 //
