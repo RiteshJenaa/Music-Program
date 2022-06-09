@@ -15,6 +15,7 @@ int currentSong = numberOfSongs - numberOfSongs;
 
 color purple = #E60AFF;
 PFont titleFont;
+float gain = 20.0;
 //
 
 void setup()
@@ -78,7 +79,7 @@ void keyPressed()
 
   //Play-Paused button
   if ( key=='l' || key=='L') song[currentSong].loop();
-  if ( key>='3' && key!='9') println("I do not loop that much! Try again.");
+  if ( key>='4' && key!='9') println("I do not loop that much! Try again.");
   //
   if ( key=='p' || key=='P' ) { 
     if ( song[currentSong].isPlaying() ) {
@@ -141,6 +142,14 @@ void keyPressed()
       song[currentSong].play();
     }
   } //End Back Button
+
+  //if (  key=='a' || key=='A' ) autoplay(); //End AutoPlay Button
+
+  if (  key=='d' || key=='D' ) {
+    gain = gain+song[currentSong].getGain();
+    song[currentSong].setGain(gain); }
+    //End Amplify Button
+
 }//End keyPressed
 
 //
