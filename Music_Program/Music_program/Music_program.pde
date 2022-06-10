@@ -1,3 +1,4 @@
+
 //Libraries: uses Sketch / Import Library / Add Library / Minim
 import ddf.minim.*;
 import ddf.minim.analysis.*;
@@ -41,6 +42,19 @@ void setup()
   println("Start of Console");
   println("Click the console to finish starting this program");
   println("Title:", songMetaData[currentSong].title() );
+  println( "Author: ", songMetaData[currentSong].author() ); 
+  println( "Composer: ", songMetaData[currentSong].composer() ); 
+  println( "Orchestra: ", songMetaData[currentSong].orchestra() );
+  println( "Album: ", songMetaData[currentSong].album() );
+  println( "Disk: ", songMetaData[currentSong].disc() );
+  println( "Publisher: ", songMetaData[currentSong].publisher() );
+  println( "Date Release: ", songMetaData[currentSong].date() );
+  println( "Copyright: ", songMetaData[currentSong].copyright() );
+  println( "Comment: ", songMetaData[currentSong].comment() );
+  println( "Lyrics: ", songMetaData[currentSong].lyrics() );
+  println( "Track: ", songMetaData[currentSong].track() );
+  println( "Genre: ", songMetaData[currentSong].genre() );
+  println( "Encoded: ", songMetaData[currentSong].encoded() ); //how a computer reads the file
 }//End setup
 
 //
@@ -49,8 +63,8 @@ void draw() {
   //if ( song[currentSong].isLooping() ) println("There are", song[currentSong].loopCount()-1, "loops left.");
   //if ( song[currentSong].isPlaying() && !song[currentSong].isLooping() ) println("Play Once");
   //
-  println("Computer Number of Current Song:", currentSong);
-  println("Song Position", song[currentSong].position(), "Song Length", song[currentSong].length() );
+  //println("Computer Number of Current Song:", currentSong);
+  //println("Song Position", song[currentSong].position(), "Song Length", song[currentSong].length() );
   //
   background (#000000);
   rect(displayWidth*1/4, displayHeight*0, displayWidth*1/2, displayHeight*1/10);
@@ -60,6 +74,28 @@ void draw() {
   text(songMetaData[currentSong].title(), displayWidth*1/4, displayHeight*0, displayWidth*1/2, displayHeight*1/10);
   fill(255);
   //
+  //
+  rect(displayWidth*1/4, displayHeight*1/8, displayWidth*1/2, displayHeight*1/10);
+  fill(purple);
+  textAlign (CENTER, CENTER); 
+  textFont(titleFont, 35); 
+  text(songMetaData[currentSong].author(), displayWidth*1/4, displayHeight*1/8, displayWidth*1/2, displayHeight*1/10);
+  fill(255);
+  //
+  //Visualizer
+  for (int i = 0; i < song[currentSong].bufferSize() - 1; i++)
+  {
+    float x1 = map( i, 0, song[currentSong].bufferSize(), 100, 500 );
+    float x2 = map( i+1, 0, song[currentSong].bufferSize(), 100, 500 );
+    line( x1, 50 + song[currentSong].left.get(i)*30, x2, 50 + song[currentSong].left.get(i+1)*30 );
+    line( x2, 150 + song[currentSong].right.get(i)*30, x2, 150 + song[currentSong].right.get(i+1)*30 );
+  }
+
+  //Draw a line to show where in the song playback is currently located
+  float posx = map(song[currentSong].position(), 0, song[currentSong].length(), 50, 500);
+  stroke(0, 200, 0);
+  line(posx, 0, posx, 190);
+  //End visualizer
 }//End draw
 
 //
@@ -143,13 +179,24 @@ void keyPressed()
     }
   } //End Back Button
 
-  //if (  key=='a' || key=='A' ) autoplay(); //End AutoPlay Button
+  /*if (  key=='a' || key=='A' ) {
+   if ( song[currentSong].isPlaying() ) {
+   song[currentSong].pause();
+   } else if ( song[currentSong].position() >= song[currentSong].length() - song[currentSong].length()*1/6 ) { //Special situation
+   song[currentSong].rewind();
+   song[currentSong].play();
+   } else {
+   song[currentSong].play();
+   }
+   }; //End AutoPlay Button
+   */
 
   if (  key=='d' || key=='D' ) {
+    println("Gain is", song[currentSong].getGain());
     gain = gain+song[currentSong].getGain();
-    song[currentSong].setGain(gain); }
-    //End Amplify Button
-
+    song[currentSong].setGain(gain);
+  }
+  //End Amplify Button
 }//End keyPressed
 
 //
