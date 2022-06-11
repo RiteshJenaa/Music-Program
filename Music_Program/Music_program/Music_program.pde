@@ -202,7 +202,8 @@ void keyPressed()
    }; //End AutoPlay Button
    */
 
-  if (  key=='r' || key=='R' ) song[numberOfSongs].loop();//End Repeat Playlist Button
+  //if (  key=='r' || key=='R' ) 
+
 }//End keyPressed
 
 //
