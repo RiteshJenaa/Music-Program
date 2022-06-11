@@ -43,18 +43,8 @@ void setup()
   println("Click the console to finish starting this program");
   println("Title:", songMetaData[currentSong].title() );
   println( "Author: ", songMetaData[currentSong].author() ); 
-  println( "Composer: ", songMetaData[currentSong].composer() ); 
-  println( "Orchestra: ", songMetaData[currentSong].orchestra() );
   println( "Album: ", songMetaData[currentSong].album() );
-  println( "Disk: ", songMetaData[currentSong].disc() );
-  println( "Publisher: ", songMetaData[currentSong].publisher() );
-  println( "Date Release: ", songMetaData[currentSong].date() );
-  println( "Copyright: ", songMetaData[currentSong].copyright() );
-  println( "Comment: ", songMetaData[currentSong].comment() );
-  println( "Lyrics: ", songMetaData[currentSong].lyrics() );
-  println( "Track: ", songMetaData[currentSong].track() );
   println( "Genre: ", songMetaData[currentSong].genre() );
-  println( "Encoded: ", songMetaData[currentSong].encoded() ); //how a computer reads the file
 }//End setup
 
 //
@@ -80,6 +70,20 @@ void draw() {
   textAlign (CENTER, CENTER); 
   textFont(titleFont, 35); 
   text(songMetaData[currentSong].author(), displayWidth*1/4, displayHeight*1/8, displayWidth*1/2, displayHeight*1/10);
+  fill(255);
+  //
+  rect(displayWidth*1/4, displayHeight*1/4, displayWidth*1/2, displayHeight*1/10);
+  fill(purple);
+  textAlign (CENTER, CENTER); 
+  textFont(titleFont, 35); 
+  text(songMetaData[currentSong].genre(), displayWidth*1/4, displayHeight*1/4, displayWidth*1/2, displayHeight*1/10);
+  fill(255);
+  //
+  rect(displayWidth*1/4, displayHeight*3/8, displayWidth*1/2, displayHeight*1/10);
+  fill(purple);
+  textAlign (CENTER, CENTER); 
+  textFont(titleFont, 35); 
+  text(songMetaData[currentSong].album(), displayWidth*1/4, displayHeight*3/8, displayWidth*1/2, displayHeight*1/10);
   fill(255);
   //
   //Visualizer
@@ -179,6 +183,13 @@ void keyPressed()
     }
   } //End Back Button
 
+  if (  key=='d' || key=='D' ) {
+    println("Gain is", song[currentSong].getGain());
+    gain = gain+song[currentSong].getGain();
+    song[currentSong].setGain(gain);
+  }
+  //End Amplify Button
+
   /*if (  key=='a' || key=='A' ) {
    if ( song[currentSong].isPlaying() ) {
    song[currentSong].pause();
@@ -191,12 +202,7 @@ void keyPressed()
    }; //End AutoPlay Button
    */
 
-  if (  key=='d' || key=='D' ) {
-    println("Gain is", song[currentSong].getGain());
-    gain = gain+song[currentSong].getGain();
-    song[currentSong].setGain(gain);
-  }
-  //End Amplify Button
+  if (  key=='r' || key=='R' ) song[numberOfSongs].loop();//End Repeat Playlist Button
 }//End keyPressed
 
 //
