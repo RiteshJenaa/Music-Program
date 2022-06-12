@@ -54,7 +54,7 @@ void draw() {
   //if ( song[currentSong].isPlaying() && !song[currentSong].isLooping() ) println("Play Once");
   //
   //println("Computer Number of Current Song:", currentSong);
-  //println("Song Position", song[currentSong].position(), "Song Length", song[currentSong].length() );
+  println("Song Position", song[currentSong].position(), "Song Length", song[currentSong].length() );
   //
   background (#000000);
   rect(displayWidth*1/4, displayHeight*0, displayWidth*1/2, displayHeight*1/10);
@@ -190,27 +190,17 @@ void keyPressed()
   }
   //End Amplify Button
 
-  /*if (  key=='a' || key=='A' ) {
-   if ( song[currentSong].isPlaying() ) {
-   song[currentSong].pause();
-   } else if ( song[currentSong].position() >= song[currentSong].length() - song[currentSong].length()*1/6 ) { //Special situation
-   song[currentSong].rewind();
-   song[currentSong].play();
-   } else {
-   song[currentSong].play();
-   }
-   }; //End AutoPlay Button
-   */
 
-  //if (  key=='r' || key=='R' ) 
+  if (  key=='a' || key=='A' ) AutoPlay(); //End AutoPlay Button 
 
+  if (  key=='f' || key=='F' ) SongSkip(); //End Song Skip Button 
+  //Note it sometimes works
 }//End keyPressed
 
 //
 
 void mousePressed() 
 {
-  //currentSong++;
 }//End mousePressed
 //
 

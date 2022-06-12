@@ -15,3 +15,32 @@ void backButtonArrayCatch() {
   }//End of CATCH
 }
 //End backButtonArrayCatch
+
+void AutoPlay() {
+  if ( song[currentSong].isPlaying() && song[currentSong].position() == song[currentSong].length() - song[currentSong].length()*1/6 ) {    
+    song[currentSong].rewind();
+    nextButtonArrayCatch();
+    song[currentSong].play();
+  } else {
+    song[currentSong].pause();
+    song[currentSong].rewind();
+    nextButtonArrayCatch();
+    song[currentSong].play();
+  }
+}
+  //End AutoPlay
+
+  void SongSkip() {
+    if ( song[currentSong].isPlaying() && song[currentSong].position() == song[currentSong].length() - song[currentSong].length()*1/6 ) {
+    } else {
+      song[currentSong].pause();
+      song[currentSong].rewind();
+      nextButtonArrayCatch();
+      song[currentSong].play();
+      song[currentSong].pause();
+      song[currentSong].rewind();
+      nextButtonArrayCatch();
+      song[currentSong].play();
+    }
+  }
+  //End SongSkip
